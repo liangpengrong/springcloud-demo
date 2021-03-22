@@ -1,2 +1,2 @@
 config: 
-  message: new config is dev
+  message: config is dev, [version]->1
