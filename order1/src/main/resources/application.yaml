@@ -1,0 +1,89 @@
+server:
+  port: 10558
+  
+#Mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+    cache-enabled: true
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    auto-mapping-behavior: partial
+    default-executor-type: simple
+    map-underscore-to-camel-case: true
+    local-cache-scope: session
+    jdbc-type-for-null: null
+
+spring:
+  application:
+    name: ORDER-SERVICE
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password:  # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+  cloud:
+    gateway:
+      enabled: true  #开启网关
+      discovery:
+        locator:
+          enabled: true #开启自动路由,以服务id建立路由，服务id默认大写
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:800
+        namespace: 144-99-8-7
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:9949
+        port: 10444
+      datasource: 
+        ds:
+          nacos:
+            server-addr: 127.0.0.1:800
+            namespace: 144-99-8-7
+            data-id: order-service-sentinel-service
+            group-id: SENTINEL
+            data-type: json
+            rule-type: flow
+#        client-ip: ${this.ip}
+#        clientIp: ${this.ip}
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka1:8900/eureka/,http://eureka2:8901/eureka/,http://eureka3:8902/eureka/
+#    fetch-registry: true
+#  instance:
+#    #将ip地址注册到Eureka注册中心
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port}  
+#ribbon:
+#  eureka:
+#    enabled: true
+
+feign:
+  client:
+    config:
+      default:
+        # 服务连接超时时间
+        connectTimeout: 10000
+        readTimeout: 10000
+  hystrix:
+    enabled: false
+  sentinel:
+    enabled: true
+
+logging:
+  level:
+    # feign日志以什么级别监控哪个接口
+    com.atguigu.springcloud.service.PaymentFeignService: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

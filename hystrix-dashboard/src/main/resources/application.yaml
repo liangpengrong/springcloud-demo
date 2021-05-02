@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: HYSTRIX-DASHBOARD-SERVICE
+    
+server:
+  port: 8910
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:8900/eureka/,http://eureka2:8901/eureka/,http://eureka3:8902/eureka/
+  instance:
+    #将ip地址注册到Eureka注册中心
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

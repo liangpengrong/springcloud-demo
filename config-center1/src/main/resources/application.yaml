@@ -1,0 +1,30 @@
+server:
+  port: 9100
+
+spring:
+  #devtools:
+    #add-properties: false
+  application:
+    name: CONFIG-CENTER-SERVICE
+  cloud:
+    config: 
+      server:
+        git:
+          uri: https://github.com/l575989285/springcloud-demo
+          username: l575989285
+          password: l9761167709
+          search-paths: /config-center
+          default-label: main
+          timeout: 5000
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:8900/eureka/,http://eureka2:8901/eureka/,http://eureka3:8902/eureka/
+    fetch-registry: true
+  instance:
+    #将ip地址注册到Eureka注册中心
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}

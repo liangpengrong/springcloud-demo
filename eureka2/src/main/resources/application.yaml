@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: EUREKA-SERVICE
+
+eureka:
+  instance:
+    hostname: eureka2
+    #将ip地址注册到Eureka注册中心
+    prefer-ip-address: false
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka1:8900/eureka/,http://eureka3:8902/eureka/
+  server:
+    enable-self-preservation: true
+
+server:
+  port: 8901

@@ -1,0 +1,55 @@
+server:
+  port: 10560
+
+spring:
+  application:
+    name: STOCK-SERVICE
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password:  # Redis服务器连接密码（默认为空）
+    timeout: 3000ms # 连接超时时间（毫秒）
+  redisson:
+    address: redis://127.0.0.1:6379
+  cloud:
+#    config:
+#      label: main
+#      name: config
+#      profile: dev
+#      discovery:
+#        enabled: true
+#        service-id: CONFIG-CENTER-SERVICE
+    nacos:
+      config:
+        server-addr: 127.0.0.1:800
+        file-extension: yaml
+        group: TEST_GROUP
+        namespace: 144-99-8-7
+      discovery:
+        server-addr: 127.0.0.1:800
+        namespace: 144-99-8-7
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:9949
+        port: 10446
+    #        client-ip: ${spring.cloud.client.ip-address}
+#        clientIp: ${spring.cloud.client.ip-address}
+    #eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka1:8900/eureka/,http://eureka2:8901/eureka/,http://eureka3:8902/eureka/
+#      registry-with-eureka: true
+#      fetch-registry: true
+#
+#  instance:
+#    #将ip地址注册到Eureka注册中心
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    
